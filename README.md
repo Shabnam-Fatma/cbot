@@ -31,6 +31,7 @@ A terminal-based AI assistant built with TypeScript and Node.js. Streams respons
 - Thinking indicator during API calls
 - Save conversations to timestamped JSON files
 - Conversation recap via AI summarization
+- keeps count of the amount of tokens used
 
 ---
 
@@ -43,6 +44,7 @@ A terminal-based AI assistant built with TypeScript and Node.js. Streams respons
 | `/recap` | AI summarizes the conversation so far |
 | `/save` | export conversation to a timestamped JSON file |
 | `/mood <name>` | switch Maarif's personality |
+| `/token` | finds amout of used tokens |
 | `/exit` | end the session |
 
 ---
