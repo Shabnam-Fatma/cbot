@@ -110,6 +110,7 @@ function help() {
   /exit    → end session
   /save    → save conversation history in a JSON file
   /mood    → switch mood (default, chaos, villain, medievalBard, hypeMan, ELI5, devilsAdvocate, socrates)
+  /tokens  → shows numbers of tokens used
 ─────────────────────────────
     `),
   );
@@ -151,25 +152,28 @@ const streamResponse = async (msg: Message[]) => {
 
   process.stdout.write(chalk.blue("Maarif: "));
   let fullReply = "";
+  let totalTokens: number = 0;
   for await (const chunk of response) {
     const piece = chunk.choices[0]?.delta.content || "";
+    // console.log(chunk.x_groq?.usage?.total_tokens);
+
     // console.log(chunk.choices[0]?.delta);
     process.stdout.write(chalk.blue(piece));
     fullReply += piece;
+    totalTokens = chunk.x_groq?.usage?.total_tokens ?? 0;       // nullish coalescing
     // await slow(2)
   }
   console.log(`   [${getTime()}]`);
-  return fullReply;
+  return { fullReply, totalTokens };
 };
 
+let sessionTokens = 0;
 const main = async () => {
   console.log(chalk.hex("#ff991c")("Welcome! Maarif here, what's up? 🔥"));
   while (true) {
     const userInput = await ask(chalk.red("You: "));
     process.stdout.write(`\x1B[1A\x1B[2K`);
-    console.log(
-      `${"You: "} ${userInput}   [${getTime()}]`,
-    );
+    console.log(`${"You: "} ${userInput}   [${getTime()}]`);
 
     if (userInput.toLowerCase() === "/exit") {
       console.log(chalk.hex("#ff991c")("Allah hafiz bro, catch you later! 👋"));
@@ -186,7 +190,7 @@ const main = async () => {
       continue;
     }
 
-    if (userInput.toLocaleLowerCase() === "/recap") {
+    if (userInput.toLowerCase() === "/recap") {
       const recapMsgs: Message[] = [
         ...messages,
         {
@@ -199,12 +203,12 @@ const main = async () => {
       continue;
     }
 
-    if (userInput.toLocaleLowerCase() === "/help") {
+    if (userInput.toLowerCase() === "/help") {
       help();
       continue;
     }
 
-    if (userInput.toLocaleLowerCase() === "/save") {
+    if (userInput.toLowerCase() === "/save") {
       saveHistoryOnFile();
       continue;
     }
@@ -230,9 +234,20 @@ const main = async () => {
       continue;
     }
 
+    if (userInput.toLowerCase() === "/tokens") {
+      const limit = 128000;
+      const pct = Math.ceil((sessionTokens / limit) * 100);
+      const color = pct < 50 ? "#00ff77" : pct < 80 ? "#fbff00" : "#e24332";
+      console.log(
+        chalk.hex(color)(`tokens: ${sessionTokens} / ${limit} (${pct}%)`),
+      );
+      continue;
+    }
+
     messages.push({ role: "user", content: userInput });
-    const completeReply = await streamResponse(messages);
-    messages.push({ role: "assistant", content: completeReply });
+    const { fullReply, totalTokens } = await streamResponse(messages);
+    sessionTokens += totalTokens;
+    messages.push({ role: "assistant", content: fullReply });
   }
 };
 main();
