@@ -20,6 +20,8 @@ const MOOD_DEVILS_ADVOCATE = `You are Maarif in Devil's Advocate Mode. Not diffi
 
 const MOOD_SOCRATES = `You are Maarif in Socrates Mode. You don't give answers — you ask questions that lead people to their own. Never directly answer. Ask one good question at a time. Islamic Socrates is a thing: "wallah interesting — but what do YOU think?". Each question should feel like it unlocks something, not like you're dodging. Keep replies SHORT — one question is enough. When they finally arrive at the answer themselves, say mashAllah and confirm. You know the answer. You're just not going to tell them.`;
 
+let systemPrompt = MOOD_DEFAULT;
+
 const groqClient = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 if (!groqClient.apiKey) {
@@ -64,7 +66,7 @@ interface Message {
 let messages: Message[] = [
   {
     role: "system",
-    content: MOOD_DEFAULT,
+    content: systemPrompt,
   },
 ];
 
@@ -92,7 +94,7 @@ function clear() {
   messages = [];
   messages.push({
     role: "system",
-    content: MOOD_DEFAULT,
+    content: systemPrompt,
   });
 }
 
@@ -107,6 +109,7 @@ function help() {
   /recap   → summarize chat
   /exit    → end session
   /save    → save conversation history in a JSON file
+  /mood    → switch mood (default, chaos, villain, medievalBard, hypeMan, ELI5, devilsAdvocate, socrates)
 ─────────────────────────────
     `),
   );
@@ -115,15 +118,15 @@ function help() {
 // const moods:{[key:string]:string}
 
 const moods: Record<string, string> = {
-  "default": MOOD_DEFAULT,
-  "chaos": MOOD_CHAOS,
-  "villain": MOOD_VILLAIN,
-  "medievalBard": MOOD_MEDIEVAL_BARD,
-  "hypeMan": MOOD_HYPE_MAN,
-  "eli": MOOD_ELI5,
-  "devilsAdvocate": MOOD_DEVILS_ADVOCATE,
-  "socrates": MOOD_SOCRATES
-}
+  default: systemPrompt,
+  chaos: MOOD_CHAOS,
+  villain: MOOD_VILLAIN,
+  medievalbard: MOOD_MEDIEVAL_BARD,
+  hypeman: MOOD_HYPE_MAN,
+  eli5: MOOD_ELI5,
+  devilsadvocate: MOOD_DEVILS_ADVOCATE,
+  socrates: MOOD_SOCRATES,
+};
 
 function saveHistoryOnFile() {
   let filteredMsgHistory = messages.filter((i) => i.role !== "system");
@@ -165,13 +168,11 @@ const main = async () => {
     const userInput = await ask(chalk.red("You: "));
     process.stdout.write(`\x1B[1A\x1B[2K`);
     console.log(
-      `${chalk.red("You: ")} ${chalk.red(userInput)}   [${getTime()}]`,
+      `${"You: "} ${userInput}   [${getTime()}]`,
     );
 
     if (userInput.toLowerCase() === "/exit") {
-      console.log(
-        chalk.hex("#ff991c")("Allah hafiz bro, catch you later! ✌️👋"),
-      );
+      console.log(chalk.hex("#ff991c")("Allah hafiz bro, catch you later! 👋"));
       rl.close();
       break;
     }
@@ -208,9 +209,25 @@ const main = async () => {
       continue;
     }
 
-    if (userInput.toLocaleLowerCase().startsWith("/mood")) {
-      let parts = userInput.split(' ')
-      let moodName = parts[1]
+    if (userInput.toLowerCase().startsWith("/mood")) {
+      let parts = userInput.split(" ");
+      let moodName = parts[1]?.toLowerCase();
+      if (!moodName) {
+        console.log(chalk.red("Please Specify a mood!!"));
+        continue;
+      }
+      if (moods[moodName]) {
+        systemPrompt = moods[moodName];
+        clear();
+        console.log(chalk.gray(`Mood switched to ${moodName}`));
+      } else {
+        console.log(
+          chalk.red(
+            "Unknown Mood!, Try: Default, Chaos, Villain, MedievalBard, HypeMan, ELI5, DevilsAdvocate, Socrates",
+          ),
+        );
+      }
+      continue;
     }
 
     messages.push({ role: "user", content: userInput });
