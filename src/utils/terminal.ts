@@ -8,9 +8,7 @@ export const rl = readline.createInterface({
 });
 
 export function ask(prompt: string): Promise<string> {
-  return new Promise((resolve) => {
-    rl.question(prompt, resolve);
-  });
+  return new Promise((resolve) => rl.question(prompt, resolve));
 }
 
 export const showThinking = () => {

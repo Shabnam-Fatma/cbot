@@ -1,5 +1,6 @@
-import "dotenv/config";
+import dotenv from "dotenv"
 
-import { main } from "./chat";
+import { chat } from "./chat";
 
-main();
+dotenv.config()
+chat();

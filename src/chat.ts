@@ -23,13 +23,12 @@ let messages: Message[] = [
   },
 ];
 
-
 // function slow(ms: number): Promise<void> {
 //   return new Promise((resolve) => setTimeout(resolve, ms));
 // }
 
 let sessionTokens = 0;
-export const main = async () => {
+export const chat = async () => {
   console.log(chalk.hex(COLORS.welcome)("Welcome! Maarif here, what's up? 🔥"));
   while (true) {
     const userInput = await ask(chalk.hex(COLORS.user)("You: "));
@@ -71,12 +70,12 @@ export const main = async () => {
     if (userInput.toLowerCase().startsWith("/mood")) {
       let parts = userInput.split(" ");
       let moodName = parts[1]?.toLowerCase() ?? "";
-      switchMood(messages, systemPrompt, moodName);
+      systemPrompt = switchMood(messages, systemPrompt, moodName);
       continue;
     }
 
     if (userInput.toLowerCase() === "/tokens") {
-      showTokens(sessionTokens)
+      showTokens(sessionTokens);
       continue;
     }
 
