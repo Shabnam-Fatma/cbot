@@ -382,14 +382,8 @@ GitHub:
 
 ---
 
-# ✦ License
-
-MIT License.
-
----
-
 <div align="center">
 
-### ✦ built with halal chaos ✦
+### ✦ built with caffine and halal vibes ✦
 
 </div>
