@@ -1,4 +1,3 @@
-````md
 <div align="center">
 
 <img src="./assets/banner.png" alt="Maarif Banner" width="100%" />
@@ -7,7 +6,7 @@
 
 # ✦ MAARIF ✦
 
-### *halal chaos · terminal edition*
+### _halal chaos · terminal edition_
 
 <p align="center">
   A personality-driven AI CLI chatbot powered by Groq streaming, custom moods, and cinematic terminal aesthetics.
@@ -43,9 +42,10 @@ Unlike traditional CLI assistants, Maarif focuses heavily on:
 - fast streaming interaction
 - immersive command-line UX
 
-Every mood is still the same identity — *Maarif* — but expressed differently.
+Every mood is still the same identity — _Maarif_ — but expressed differently.
 
 The project combines:
+
 - AI streaming
 - prompt engineering
 - terminal UI design
@@ -60,12 +60,15 @@ into a polished developer-focused CLI experience.
 # ✦ Features
 
 ### ✦ Real-Time Streaming Responses
+
 Powered by Groq streaming for instant token-by-token replies.
 
 ### ✦ Dynamic Mood System
+
 Switch Maarif's personality in real time.
 
 Available moods:
+
 - default
 - chaos
 - villain
@@ -76,7 +79,9 @@ Available moods:
 - socrates
 
 ### ✦ Cinematic Terminal UI
+
 Custom terminal styling with:
+
 - neon color themes
 - boxed command panels
 - ASCII banners
@@ -85,33 +90,38 @@ Custom terminal styling with:
 - premium CLI layout
 
 ### ✦ Persistent Conversation Context
+
 Maintains conversational memory throughout the session.
 
 ### ✦ Token Usage Tracking
+
 Monitor total session token consumption.
 
 ### ✦ Conversation Recap System
+
 Generate summarized recaps of ongoing conversations.
 
 ### ✦ JSON Conversation Export
+
 Save full chat history locally.
 
 ### ✦ Built with TypeScript
+
 Fully typed architecture with modular organization.
 
 ---
 
 # ✦ Tech Stack
 
-| Technology | Usage |
-|---|---|
-| TypeScript | Core language |
-| Node.js | Runtime |
-| Groq SDK | AI inference + streaming |
-| Chalk | Terminal styling |
-| Figlet | ASCII banners |
-| Gradient String | Terminal gradients |
-| TSX | Development runtime |
+| Technology      | Usage                    |
+| --------------- | ------------------------ |
+| TypeScript      | Core language            |
+| Node.js         | Runtime                  |
+| Groq SDK        | AI inference + streaming |
+| Chalk           | Terminal styling         |
+| Figlet          | ASCII banners            |
+| Gradient String | Terminal gradients       |
+| TSX             | Development runtime      |
 
 ---
 
@@ -136,15 +146,18 @@ Maarif is designed around a **single consistent identity**.
 The moods do not create different characters.
 
 Instead:
+
 - each mood amplifies different traits
 - while preserving the same personality core
 
 This creates:
+
 - consistency
 - realism
 - recognizable conversational behavior
 
 The system prompt architecture includes:
+
 - core personality layer
 - modular mood overlays
 - response-style constraints
@@ -231,15 +244,15 @@ npm run dev
 
 # ✦ Commands
 
-| Command | Description |
-|---|---|
-| `/help` | Show command menu |
-| `/clear` | Reset chat memory |
-| `/recap` | Summarize conversation |
-| `/save` | Export chat history |
-| `/mood` | Switch personality mode |
-| `/tokens` | Show token usage |
-| `/exit` | Exit Maarif |
+| Command   | Description             |
+| --------- | ----------------------- |
+| `/help`   | Show command menu       |
+| `/clear`  | Reset chat memory       |
+| `/recap`  | Summarize conversation  |
+| `/save`   | Export chat history     |
+| `/mood`   | Switch personality mode |
+| `/tokens` | Show token usage        |
+| `/exit`   | Exit Maarif             |
 
 ---
 
@@ -277,12 +290,14 @@ src
 Maarif streams responses token-by-token using the Groq SDK.
 
 Key features:
+
 - low latency generation
 - live rendering
 - real-time output updates
 - streaming token tracking
 
 Implementation highlights:
+
 - async iterable stream handling
 - incremental terminal rendering
 - accumulated response buffering
@@ -293,6 +308,7 @@ Implementation highlights:
 # ✦ Terminal Design Philosophy
 
 The UI design focuses on making the terminal feel:
+
 - immersive
 - cinematic
 - expressive
@@ -300,6 +316,7 @@ The UI design focuses on making the terminal feel:
 - personality-driven
 
 The visual system uses:
+
 - neon pink accents
 - soft purple borders
 - cyan user prompts
@@ -329,6 +346,7 @@ instead of traditional minimalist terminal styling.
 # ✦ Why This Project Exists
 
 Most AI CLIs feel:
+
 - robotic
 - generic
 - visually dull
@@ -339,6 +357,7 @@ Maarif was built to explore:
 > “What if a terminal assistant actually felt alive?”
 
 The project experiments with:
+
 - conversational identity
 - emotional tone systems
 - CLI aesthetics
@@ -356,6 +375,7 @@ while remaining lightweight and developer-friendly.
 ## Shabnam Fatma
 
 GitHub:
+
 ### https://github.com/Shabnam-Fatma
 
 </div>
@@ -373,4 +393,3 @@ MIT License.
 ### ✦ built with halal chaos ✦
 
 </div>
-````
